@@ -11,15 +11,12 @@ export class AppController {
 
   @Get()
   getHello(): string {
-         return this.appService.getHello();
+    return this.appService.getHello();
   }
 
-  @Post()  
-  storeIpfs(
-    @Body() storeIpfsDto: StoreIpfsDto,
-  ) {
-    return this.appService.storeIpfs(storeIpfsDto)
-
+  @Post()
+  storeIpfs(@Body() storeIpfsDto: StoreIpfsDto) {
+    return this.appService.storeIpfs(storeIpfsDto);
   }
 }
 
