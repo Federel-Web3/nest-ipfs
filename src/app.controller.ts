@@ -31,6 +31,7 @@ export class AppController {
   @Post('bulk')
   @UseInterceptors(FileInterceptor('file'))
   async bulkStoreIpfs(@UploadedFile() file: Express.Multer.File) {
+    console.log(file.buffer.toString());
     const parsedArray = await this.parserService.parse(file.buffer.toString());
     await this.appService.bulkStoreIpfs(parsedArray);
   }

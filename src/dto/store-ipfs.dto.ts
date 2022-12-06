@@ -14,6 +14,10 @@ export class StoreIpfsDto {
   idUtilizacao: string;
 
   @IsNotEmpty()
+  @IsDate()
+  dataRegistro: Date;
+
+  @IsNotEmpty()
   @IsIn(UFs)
   UF: string;
 
@@ -44,7 +48,10 @@ export class StoreIpfsDto {
   dataInicio: Date;
 
   @IsNotEmpty()
-  dimensao: string;
+  area_terreno: string;
+
+  @IsNotEmpty()
+  area_uniao: string;
 
   @IsNotEmpty()
   lote: string;
@@ -52,9 +59,6 @@ export class StoreIpfsDto {
   @IsNotEmpty()
   quadra: string;
   //Qualificação do proprietário atual (nome, CPF, RG, estado civil etc.);
-  @IsNotEmpty()
-  @IsDate()
-  dataRegistro: Date;
 
   @IsNotEmpty()
   @IsArray()
