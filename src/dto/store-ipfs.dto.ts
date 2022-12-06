@@ -1,10 +1,4 @@
-import {
-  IsArray,
-  IsDate,
-  IsIn,
-  IsNotEmpty,
-  IsOptional,
-} from 'class-validator';
+import { IsArray, IsDate, IsIn, IsNotEmpty, IsOptional } from 'class-validator';
 import { UFs } from 'src/types/uf';
 import { isInt8Array } from 'util/types';
 

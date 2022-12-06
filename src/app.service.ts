@@ -24,4 +24,11 @@ export class AppService {
     const cid = await this.client.put(files);
     return { cid };
   }
+
+  async bulkStoreIpfs(storeIpfsDto: StoreIpfsDto) {
+    const buffer = Buffer.from(JSON.stringify(storeIpfsDto));
+    const files = [new File([buffer], 'data.json')];
+    const cid = await this.client.put(files);
+    return { cid };
+  }
 }
