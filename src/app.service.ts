@@ -25,10 +25,17 @@ export class AppService {
     return { cid };
   }
 
-  async bulkStoreIpfs(storeIpfsDto: StoreIpfsDto) {
-    const buffer = Buffer.from(JSON.stringify(storeIpfsDto));
-    const files = [new File([buffer], 'data.json')];
-    const cid = await this.client.put(files);
-    return { cid };
+  async bulkStoreIpfs(storeIpfsDtoArray: StoreIpfsDto[]) {
+    const cids = [];
+    for (let i = 0; i < storeIpfsDtoArray.length; i++) {
+      const storeIpfsDto = storeIpfsDtoArray[i];
+      const buffer = Buffer.from(JSON.stringify(storeIpfsDto));
+      const files = [new File([buffer], 'data.json')];
+      const cid = await this.client.put(files);
+
+      cids.push(cid);
+    }
+
+    return cids;
   }
 }

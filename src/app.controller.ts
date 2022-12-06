@@ -8,14 +8,15 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { StoreIpfsDto } from './dto/store-ipfs.dto';
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import configuration from './config/configuration';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ParserService } from './parser/parser.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly parserService: ParserService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -29,16 +30,8 @@ export class AppController {
 
   @Post('bulk')
   @UseInterceptors(FileInterceptor('file'))
-  bulkStoreIpfs(@UploadedFile() file: Express.Multer.File) {
-    console.log(file.buffer.toString());
+  async bulkStoreIpfs(@UploadedFile() file: Express.Multer.File) {
+    const parsedArray = await this.parserService.parse(file.buffer.toString());
+    await this.appService.bulkStoreIpfs(parsedArray);
   }
 }
-
-@Module({
-  imports: [
-    ConfigModule.forRoot({
-      load: [configuration],
-    }),
-  ],
-})
-export class AppModule {}
