@@ -18,11 +18,6 @@ export class AppController {
     private readonly parserService: ParserService,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Post()
   storeIpfs(@Body() storeIpfsDto: StoreIpfsDto) {
     return this.appService.storeIpfs(storeIpfsDto);
@@ -33,6 +28,6 @@ export class AppController {
   async bulkStoreIpfs(@UploadedFile() file: Express.Multer.File) {
     console.log(file.buffer.toString());
     const parsedArray = await this.parserService.parse(file.buffer.toString());
-    await this.appService.bulkStoreIpfs(parsedArray);
+    return await this.appService.bulkStoreIpfs(parsedArray);
   }
 }
