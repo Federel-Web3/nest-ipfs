@@ -8,7 +8,10 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { StoreIpfsDto } from './dto/store-ipfs.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
 import { ParserService } from './parser/parser.service';
 
 @Controller()
@@ -24,7 +27,12 @@ export class AppController {
   }
 
   @Post('bulk')
-  @UseInterceptors(FileInterceptor('properties'), FileInterceptor('owners'))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'properties', maxCount: 1 },
+      { name: 'owners', maxCount: 1 },
+    ]),
+  )
   async bulkStoreIpfs(@UploadedFile() file: Express.Multer.File) {
     const parsedArray = await this.parserService.parse(file.buffer.toString());
     return await this.appService.bulkStoreIpfs(parsedArray);
