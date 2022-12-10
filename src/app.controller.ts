@@ -6,6 +6,7 @@ import {
   UseInterceptors,
   UploadedFile,
   UploadedFiles,
+  Logger,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { StoreIpfsDto } from './dto/store-ipfs.dto';
@@ -17,6 +18,7 @@ import { ParserService } from './parser/parser.service';
 
 @Controller()
 export class AppController {
+  private logger: Logger = new Logger('AppController');
   constructor(
     private readonly appService: AppService,
     private readonly parserService: ParserService,
@@ -37,12 +39,12 @@ export class AppController {
   async bulkStoreIpfs(
     @UploadedFiles()
     files: {
-      file1?: Express.Multer.File[];
-      file2?: Express.Multer.File[];
+      properties?: Express.Multer.File[];
+      owners?: Express.Multer.File[];
     },
   ) {
     const parsedArray = await this.parserService.parse(
-      files[0].buffer.toString(),
+      files.properties[0].buffer.toString(),
     );
     return await this.appService.bulkStoreIpfs(parsedArray);
   }
