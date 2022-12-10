@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { OwnerIpfsDto } from 'src/dto/owner-ipfs.dto';
 import { StoreIpfsDto } from '../dto/store-ipfs.dto';
 
 @Injectable()
@@ -9,35 +10,50 @@ export class ParserService {
     this.logger.log('start ParserService..');
   }
 
-  async parse(dataInCsv: string) {
-    const lines = dataInCsv.split('\n');
-
+  async parse(dataInProperties: string, dataInOwners: string) {
+    const lines = dataInProperties.split('\n');
+    const linesOwners = dataInOwners.split('\n');
     const storeIpfsDtoArray: StoreIpfsDto[] = [];
 
-    for (const i in lines) {
+    for (let i = 0; i < lines.length; i++) {
+      const col = lines[i];
       const storeIpfsDto = new StoreIpfsDto();
 
       const columns = [];
 
-      columns.push(lines[i].split(';'));
+      columns.push(col.split(';'));
 
       for (const i in columns) {
-        storeIpfsDto.classe = columns[i][0];
-        storeIpfsDto.rip = columns[i][1];
-        storeIpfsDto.idUtilizacao = columns[i][2];
-        storeIpfsDto.dataRegistro = columns[i][3];
-        storeIpfsDto.UF = columns[i][4];
-        storeIpfsDto.municipio = columns[i][5];
-        storeIpfsDto.endereco = columns[i][6];
-        storeIpfsDto.bairro = columns[i][7];
-        storeIpfsDto.conceituacao = columns[i][8];
-        storeIpfsDto.tipo_imovel = columns[i][9];
-        storeIpfsDto.regime_utilizacao = columns[i][10];
-        storeIpfsDto.proprietario_oficial = columns[i][11];
-        storeIpfsDto.dataInicio = columns[i][12];
-        storeIpfsDto.area_terreno = columns[i][13];
-        storeIpfsDto.area_uniao = columns[i][14];
+        storeIpfsDto.classe = columns[0];
+        storeIpfsDto.rip = columns[1];
+        storeIpfsDto.idUtilizacao = columns[2];
+        storeIpfsDto.dataRegistro = columns[3];
+        storeIpfsDto.UF = columns[4];
+        storeIpfsDto.municipio = columns[5];
+        storeIpfsDto.endereco = columns[6];
+        storeIpfsDto.bairro = columns[7];
+        storeIpfsDto.conceituacao = columns[8];
+        storeIpfsDto.tipo_imovel = columns[9];
+        storeIpfsDto.regime_utilizacao = columns[10];
+        storeIpfsDto.proprietario_oficial = columns[11];
+        storeIpfsDto.dataInicio = columns[12];
+        storeIpfsDto.area_terreno = columns[13];
+        storeIpfsDto.area_uniao = columns[14];
       }
+
+      const ownerIpfsDto = new OwnerIpfsDto();
+
+      console.log(linesOwners[i]);
+      const columnsOwner = linesOwners[i].split(';');
+
+      console.log(columnsOwner);
+      ownerIpfsDto.tipoResponsavel = columnsOwner[1];
+      ownerIpfsDto.codEntidade = columnsOwner[2];
+      ownerIpfsDto.ocupante = columnsOwner[3];
+      ownerIpfsDto.regime = columnsOwner[4];
+
+      storeIpfsDto.proprietario = ownerIpfsDto;
+
       storeIpfsDtoArray.push(storeIpfsDto);
     }
 

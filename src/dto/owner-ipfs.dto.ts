@@ -1,6 +1,9 @@
 import { IsOptional } from 'class-validator';
 
-export class PersonIpfsDto {
+export class OwnerIpfsDto {
+  @IsOptional()
+  tipoResponsavel: string;
+
   @IsOptional()
   codEntidade: string;
 

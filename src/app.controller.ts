@@ -45,7 +45,9 @@ export class AppController {
   ) {
     const parsedArray = await this.parserService.parse(
       files.properties[0].buffer.toString(),
+      files.owners[0].buffer.toString(),
     );
+
     return await this.appService.bulkStoreIpfs(parsedArray);
   }
 }

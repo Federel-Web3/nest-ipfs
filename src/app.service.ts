@@ -31,10 +31,9 @@ export class AppService {
     for (let i = 0; i < storeIpfsDtoArray.length; i++) {
       const storeIpfsDto = storeIpfsDtoArray[i];
       const buffer = Buffer.from(JSON.stringify(storeIpfsDto));
-      this.logger.log("buffer: " + buffer.toString());
       const files = [new File([buffer], 'data.json')];
       const cid = this.client.put(files);
-
+      this.logger.log('cid sent');
       cids.push(cid);
     }
 

@@ -8,7 +8,7 @@ import {
 import { UFs } from 'src/types/uf';
 
 import { Type } from 'class-transformer';
-import { PersonIpfsDto } from './person-ipfs.dto';
+import { OwnerIpfsDto } from './owner-ipfs.dto';
 export class StoreIpfsDto {
   @IsOptional()
   classe: string;
@@ -87,9 +87,9 @@ export class StoreIpfsDto {
   @IsOptional()
   document: string;
 
-  @Type(() => PersonIpfsDto)
+  @Type(() => OwnerIpfsDto)
   @ValidateNested()
-  proprietario: PersonIpfsDto;
+  proprietario: OwnerIpfsDto;
 }
 
 // A matrícula do imóvel é constituída pelas seguintes informações:
