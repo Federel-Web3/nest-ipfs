@@ -21,7 +21,6 @@ export class ParserService {
 
       columns.push(lines[i].split(';'));
 
-      let iter = 0;
       for (const i in columns) {
         storeIpfsDto.classe = columns[i][0];
         storeIpfsDto.rip = columns[i][1];
@@ -40,10 +39,6 @@ export class ParserService {
         storeIpfsDto.area_uniao = columns[i][14];
       }
       storeIpfsDtoArray.push(storeIpfsDto);
-      iter += 1;
-
-      this.logger.log(`iteration ${iter}`);
-      if (iter > 1000) break;
     }
 
     return storeIpfsDtoArray;

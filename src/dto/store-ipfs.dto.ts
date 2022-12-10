@@ -1,4 +1,4 @@
-import { IsArray, IsDate, IsIn, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsArray, IsDate, IsIn, IsOptional } from 'class-validator';
 import { UFs } from 'src/types/uf';
 import { isInt8Array } from 'util/types';
 
@@ -9,18 +9,18 @@ export class StoreIpfsDto {
   @IsOptional()
   rip: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   idUtilizacao: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   dataRegistro: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsIn(UFs)
   UF: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   municipio: string;
 
   @IsOptional()
@@ -29,55 +29,55 @@ export class StoreIpfsDto {
   @IsOptional()
   bairro: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   conceituacao: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   // @IsIn(["AÇUDE", "TERRENO", ""])
   tipo_imovel: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   regime_utilizacao: string;
 
   @IsOptional()
   proprietario_oficial: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   dataInicio: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   area_terreno: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   area_uniao: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   lote: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   quadra: string;
   //Qualificação do proprietário atual (nome, CPF, RG, estado civil etc.);
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsArray()
   inventarios: string[];
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsArray()
   acoes_judiciais: string[];
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsArray()
   compras_e_vendas: string[];
 
   //array de hashes do ipfs
-  @IsNotEmpty()
+  @IsOptional()
   @IsArray()
   alteracoes: string[];
 
   // hash de ipfs
-  @IsNotEmpty()
+  @IsOptional()
   document: string;
 }
 
