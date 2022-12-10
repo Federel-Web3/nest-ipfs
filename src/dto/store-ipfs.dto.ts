@@ -4,7 +4,6 @@ import { isInt8Array } from 'util/types';
 
 export class StoreIpfsDto {
   @IsOptional()
-  @IsIn(['DOMINIAL', 'USO_ESPECIAL', 'IMOVEL FUNCIONAL'])
   classe: string;
 
   @IsOptional()
