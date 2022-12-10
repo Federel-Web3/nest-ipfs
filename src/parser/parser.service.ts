@@ -11,7 +11,6 @@ export class ParserService {
 
   async parse(dataInCsv: string) {
     const lines = dataInCsv.split('\n');
-    console.log(lines);
 
     const storeIpfsDtoArray: StoreIpfsDto[] = [];
 
@@ -39,8 +38,6 @@ export class ParserService {
       }
       storeIpfsDtoArray.push(storeIpfsDto);
     }
-
-    console.log(storeIpfsDtoArray);
 
     return storeIpfsDtoArray;
   }
