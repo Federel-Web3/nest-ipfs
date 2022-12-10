@@ -1,7 +1,14 @@
-import { IsArray, IsDate, IsIn, IsOptional } from 'class-validator';
+import {
+  IsArray,
+  IsDate,
+  IsIn,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
 import { UFs } from 'src/types/uf';
-import { isInt8Array } from 'util/types';
 
+import { Type } from 'class-transformer';
+import { PersonIpfsDto } from './person-ipfs.dto';
 export class StoreIpfsDto {
   @IsOptional()
   classe: string;
@@ -79,6 +86,10 @@ export class StoreIpfsDto {
   // hash de ipfs
   @IsOptional()
   document: string;
+
+  @Type(() => PersonIpfsDto)
+  @ValidateNested()
+  proprietario: PersonIpfsDto;
 }
 
 // A matrícula do imóvel é constituída pelas seguintes informações:
